@@ -11,6 +11,7 @@ on:
       - "VM_INFO"
       - "SSH_KEYS"
       - ".gitignore"
+      - ".github/**"
 
 env:
   IMAGE_NAME: a4-webgallery

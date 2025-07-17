@@ -23,6 +23,7 @@ services:
       - ./acme:/etc/acme.sh
     environment:
       - DEFAULT_EMAIL=rameen.popal@mail.utoronto.ca
+      - NGINX_PROXY_CONTAINER=nginx-proxy
   backend:
     image: ghcr.io/utsc-cscc09-programming-on-the-web/a4-webgallery
     container_name: backend
