@@ -32,4 +32,5 @@ services:
       - VIRTUAL_HOST=webgallery.ramypoe.tech
       - LETSENCRYPT_HOST=webgallery.ramypoe.tech
     volumes:
-      - ./db/gallery.sqlite:/usr/src/app/gallery.sqlite
+      - ./gallery/gallery.sqlite:/usr/src/app/gallery.sqlite
+      - ./gallery/uploads:/usr/src/app/uploads
