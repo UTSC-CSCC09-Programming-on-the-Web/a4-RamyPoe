@@ -112,19 +112,18 @@
       <div class="comments-form">
         <form id="postCommentForm" class="custom-form upload-form">
           <textarea
+            id="commentTextArea"
             placeholder="Comment Body"
             name="content"
             required
           ></textarea>
-          <button class="btn post-comment-btn button-anim">Post Comment</button>
+          <button id="postCommentBtn" class="btn post-comment-btn button-anim">Post Comment</button>
         </form>
       </div>
 
       <div class="comments-container">
         <div id="comments" class="comments"></div>
-        <h1 id="failedCommentsBanner" class="cmt-banner hidden">
-          Failed to load comments!
-        </h1>
+        <h1 id="failedCommentsBanner" class="cmt-banner hidden"></h1>
         <h1 id="emptyCommentsBanner" class="cmt-banner hidden">
           No comments, be the first!
         </h1>

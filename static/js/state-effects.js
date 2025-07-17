@@ -215,12 +215,30 @@ let stateEffects = (function () {
 
   meact.useEffect(() => {
     const state = getCommentsState();
+    console.log("comments state: ", state);
+
     const spinningLoader = document.querySelector("#spinningLoaderComments");
     const commentsContainer = document.querySelector("#comments");
     const failedBanner = document.querySelector("#failedCommentsBanner");
     const emptyBanner = document.querySelector("#emptyCommentsBanner");
     const pageNumberText = document.querySelector("#pageNumberDisplay");
     const commentsSection = document.querySelector("#commentsSection");
+    const textArea = document.querySelector("#commentTextArea");
+    const postCommentBtn = document.querySelector("#postCommentBtn");
+
+    if (state === "disabled" && !getViewListPage()) {
+      failedBanner.innerHTML = "Login to see comments!"
+      commentsContainer.classList.add("hidden");
+      spinningLoader.classList.add("hidden");
+      failedBanner.classList.remove("hidden");
+      emptyBanner.classList.add("hidden");
+      pageNumberText.innerHTML = "Showing 0-0 of 0";
+      textArea.disabled = true;
+      postCommentBtn.classList.remove("button-anim");
+      return;
+    }
+    textArea.disabled = false;
+    postCommentBtn.classList.add("button-anim");
 
     if (state === "disabled") {
       commentsSection.classList.add("hidden");
@@ -242,6 +260,7 @@ let stateEffects = (function () {
       commentsContainer.classList.remove("hidden");
     }
     if (state === "failed") {
+      failedBanner.innerHTML = "Failed to load comments!"
       commentsContainer.classList.add("hidden");
       spinningLoader.classList.add("hidden");
       failedBanner.classList.remove("hidden");

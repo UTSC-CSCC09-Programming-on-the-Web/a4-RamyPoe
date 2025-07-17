@@ -351,6 +351,7 @@
     document
       .querySelector("#prevCommentPageLink")
       .addEventListener("click", () => {
+        if (stateEffects.getCommentsState() === "disabled") return;
         const curPage = getCommentsPage();
         if (curPage <= 0 || stateEffects.getCommentsState() !== "loaded") {
           return;
@@ -360,6 +361,7 @@
     document
       .querySelector("#nextCommentPageLink")
       .addEventListener("click", () => {
+        if (stateEffects.getCommentsState() === "disabled") return;
         const curPage = getCommentsPage();
         if (
           (curPage + 1) * COMMENT_PAGE_LIMIT >= getCommentsData().total ||
@@ -447,9 +449,7 @@
     const postCommentForm = document.querySelector("#postCommentForm");
     postCommentForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      if (stateEffects.getCommentsState() === "loading") {
-        return;
-      }
+      if (["loading", "disabled"].includes(stateEffects.getCommentsState())) return;
 
       const formData = new FormData(e.target);
       const formProps = Object.fromEntries(formData);
