@@ -3,7 +3,7 @@ import { Router } from "express";
 import { User } from "../models/Users.js";
 import { Token } from "../models/Tokens.js";
 import { checkAuth } from "../middleware/auth.js";
-import crypto from 'crypto';
+import crypto from "crypto";
 
 const SALT_ROUNDS = 10;
 const TOKEN_EXPIRY = 60 * 60 * 2; // 2 Hours

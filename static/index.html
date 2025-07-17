@@ -17,7 +17,9 @@
       <p id="loginBtn" class="user-account-btn page-link button-anim">LOGIN</p>
     </div>
 
-    <header id="homePageTitle" class="title button-anim">The Web Gallery</header>
+    <header id="homePageTitle" class="title button-anim">
+      The Web Gallery
+    </header>
 
     <div id="loginContainer" class="login-container animation-hide">
       <form id="loginForm" class="custom-form login-form">
@@ -29,9 +31,13 @@
           required
         />
         <div class="login-btn-container">
-          <button id="signupBtn" class="btn login-btn button-anim">SIGN UP</button>
+          <button id="signupBtn" class="btn login-btn button-anim">
+            SIGN UP
+          </button>
           <div class="spacer"></div>
-          <button id="signinBtn" class="btn login-btn button-anim">SIGN IN</button>
+          <button id="signinBtn" class="btn login-btn button-anim">
+            SIGN IN
+          </button>
         </div>
       </form>
       <div id="loginStateMsg" class="login-state-msg"></div>
@@ -65,7 +71,9 @@
       </div>
 
       <div id="galleryHeader" class="gallery-header">
-        <button id="addImgBtn" class="btn button-anim add-img-btn">ADD NEW IMAGE</button>
+        <button id="addImgBtn" class="btn button-anim add-img-btn">
+          ADD NEW IMAGE
+        </button>
         <div class="spacer"></div>
         <p id="imageCount" class="image-count">0/0</p>
         <div class="spacer"></div>
@@ -76,8 +84,6 @@
 
       <div id="imageContainer" class="gallery-image-container">
         <img src="" id="galleryImage" class="gallery-image hidden" />
-        <button id="prevImgBtn" class="prev-btn button-anim"></button>
-        <button id="nextImgBtn" class="next-btn button-anim"></button>
         <h1 id="emptyImgBanner" class="empty-img-banner hidden">
           No images in this gallery yet!
         </h1>
@@ -87,10 +93,16 @@
         <span id="spinningLoaderImage" class="loader image-loader"></span>
       </div>
 
-      <div id="imageCaption" class="gallery-image-caption">
-        <b id="imageTitle" class="image-title">Title</b>
-        <div class="vertical-line"></div>
-        <p id="imageAuthor" class="image-author">Author</p>
+      <div class="image-bottom-row">
+        <button id="prevImgBtn" class="prev-btn"></button>
+
+        <div id="imageCaption" class="gallery-image-caption">
+          <b id="imageTitle" class="image-title">Title</b>
+          <div class="vertical-line"></div>
+          <p id="imageAuthor" class="image-author">Author</p>
+        </div>
+        
+        <button id="nextImgBtn" class="next-btn"></button>
       </div>
     </div>
 

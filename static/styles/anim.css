@@ -37,9 +37,9 @@ p[disabled] {
 }
 
 .button-anim {
-  transition: transform .2s;
+  transition: transform 0.2s;
 }
 
 .button-anim:hover {
-  transform: scale(1.1,1.1);
+  transform: scale(1.1, 1.1);
 }

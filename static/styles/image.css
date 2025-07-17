@@ -61,7 +61,7 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 100%;
+  width: fit-content;
   height: 100%;
 }
 
@@ -103,33 +103,30 @@ a {
 .prev-btn,
 .next-btn {
   cursor: pointer;
-  position: absolute;
-  bottom: 0;
-
   background-image: url("../media/arrow-button.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-color: transparent;
-  aspect-ratio: 1/5;
-  width: 10vh;
-  max-width: 8vw;
 
-  padding: 0 5px;
-  border: 0.3vw solid white;
+  aspect-ratio: 1;
+  margin-top: 6px;
+  padding: 0 33px;
   border-radius: 25px;
 
-  top: 50%;
+  transition: transform 0.2s;
 }
 
 .prev-btn {
-  transform: rotate(180deg) translateY(50%);
-  right: 101%;
+  transform: rotate(180deg);
 }
 
-.next-btn {
-  left: 101%;
-  transform: translateY(-50%);
+.prev-btn:hover {
+  transform: rotate(180deg) scale(1.1, 1.1) translateX(10px);
+}
+
+.next-btn:hover {
+  transform: scale(1.1, 1.1) translateX(10px);
 }
 
 .image-count {
@@ -219,4 +216,10 @@ footer {
 
 .seperation-bar {
   border: 1px solid grey;
+}
+
+.image-bottom-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
