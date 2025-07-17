@@ -54,6 +54,7 @@ jobs:
           host: "138.197.129.254"
           username: root
           key: ${{ secrets.VM_SSH_KEY }}
+          passphrase: ${{ secret.SSH_PASSPHRASE }}
           script: |
             sleep 60
             docker compose pull && docker compose up -d
