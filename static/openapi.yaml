@@ -1,0 +1,628 @@
+openapi: 3.0.0
+info:
+  title: The Web Gallery API
+  version: 1.2.0
+  description: |
+    REST API for The Web Gallery application. Users can register, authenticate, manage their own galleries, upload/delete images, and comment on images. Includes authentication and authorization.
+servers:
+  - url: http://localhost:3000/api
+
+tags:
+  - name: Users
+    description: User registration, authentication, and gallery management
+  - name: Images
+    description: Image upload, retrieval, and deletion
+  - name: Comments
+    description: Commenting on images
+
+paths:
+  /users/register:
+    post:
+      tags: [Users]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username:
+                  type: string
+                  example: alice
+                password:
+                  type: string
+                  example: password123
+      responses:
+        "200":
+          description: User registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: integer
+                  username:
+                    type: string
+              example:
+                userId: 1
+                username: alice
+        "400":
+          description: Missing fields
+          content:
+            application/json:
+              example:
+                error: Fields username and password are required.
+        "422":
+          description: Username taken
+          content:
+            application/json:
+              example:
+                error: Username already taken! Try again.
+
+  /users/token:
+    post:
+      tags: [Users]
+      summary: Sign in and get a bearer token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username:
+                  type: string
+                  example: alice
+                password:
+                  type: string
+                  example: password123
+      responses:
+        "200":
+          description: Token issued
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  userId:
+                    type: integer
+                  issuedDate:
+                    type: string
+                    format: date-time
+                  expiryTime:
+                    type: integer
+              example:
+                token: dG9rZW5JZCUlcmFuZG9tdXVpZA==
+                userId: 1
+                issuedDate: "2025-06-24T12:00:00Z"
+                expiryTime: 7200
+        "400":
+          description: Missing fields
+          content:
+            application/json:
+              example:
+                error: Fields username and password are required.
+        "401":
+          description: Incorrect credentials
+          content:
+            application/json:
+              example:
+                error: Incorrect username or password.
+
+  /users/revoke:
+    post:
+      tags: [Users]
+      summary: Revoke the current token (sign out)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            example: "Bearer <token>"
+          description: Bearer token for authentication
+      responses:
+        "200":
+          description: Token revoked
+          content:
+            application/json:
+              example:
+                msg: Token has been revoked.
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              example:
+                error: Not Authenticated
+
+  /users:
+    get:
+      tags: [Users]
+      summary: Get paginated list of users (galleries)
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            default: 10
+      responses:
+        "200":
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  users:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+              example:
+                total: 2
+                users:
+                  - userId: 1
+                    username: alice
+                  - userId: 2
+                    username: bob
+        "422":
+          description: Invalid page/limit
+          content:
+            application/json:
+              example:
+                error: Invalid page and/or limit parameter.
+
+  /users/{userId}/images:
+    get:
+      tags: [Images]
+      summary: Get paginated images for a user (gallery)
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            default: 10
+      responses:
+        "200":
+          description: List of images
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  images:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Image"
+              example:
+                total: 1
+                images:
+                  - imageId: 1
+                    title: "Sunset"
+                    userId: 1
+                    postedDate: "2025-06-24T12:00:00Z"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              example:
+                error: User with userId=123 not found.
+        "422":
+          description: Invalid page/limit
+          content:
+            application/json:
+              example:
+                error: Invalid page and/or limit parameter.
+
+  /images:
+    post:
+      tags: [Images]
+      summary: Upload a new image (authenticated, own gallery)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            example: "Bearer <token>"
+          description: Bearer token for authentication
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [title, picture]
+              properties:
+                title:
+                  type: string
+                  example: "Sunset at the Beach"
+                picture:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Image uploaded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Image"
+        "400":
+          description: Missing required fields
+          content:
+            application/json:
+              example:
+                error: Field title is required
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              example:
+                error: Not Authenticated
+
+  /images/{imageId}:
+    get:
+      tags: [Images]
+      summary: Get image metadata by ID
+      parameters:
+        - in: path
+          name: imageId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Image metadata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Image"
+        "400":
+          description: Missing imageId
+          content:
+            application/json:
+              example:
+                error: Field imageId is required
+        "404":
+          description: Image not found
+          content:
+            application/json:
+              example:
+                error: Image with imageId=123 not found.
+
+    delete:
+      tags: [Images]
+      summary: Delete image by ID (authenticated, own gallery)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            example: "Bearer <token>"
+          description: Bearer token for authentication
+        - in: path
+          name: imageId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Image deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Image"
+        "400":
+          description: Missing imageId
+          content:
+            application/json:
+              example:
+                error: Field imageId is required
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              example:
+                error: Not Authenticated
+        "403":
+          description: Not image owner
+          content:
+            application/json:
+              example:
+                error: Cannot delete image from different gallery
+        "404":
+          description: Image not found
+          content:
+            application/json:
+              example:
+                error: Image with imageId=123 not found.
+
+  /images/{imageId}/picture:
+    get:
+      tags: [Images]
+      summary: Get the image file (binary)
+      parameters:
+        - in: path
+          name: imageId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: The image file
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: Missing imageId
+          content:
+            application/json:
+              example:
+                error: Field imageId is required
+        "404":
+          description: Image not found
+          content:
+            application/json:
+              example:
+                error: Image with imageId=123 not found.
+
+  /images/{imageId}/comments:
+    parameters:
+      - in: path
+        name: imageId
+        required: true
+        schema:
+          type: integer
+    get:
+      tags: [Comments]
+      summary: Get paginated comments for an image
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            example: "Bearer <token>"
+          description: Bearer token for authentication
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            default: 10
+      responses:
+        "200":
+          description: List of comments
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  comments:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Comment"
+              example:
+                total: 1
+                comments:
+                  - commentId: 1
+                    imageId: 1
+                    userId: 2
+                    username: bob
+                    content: "Great photo!"
+                    postedDate: "2025-06-24T12:00:00Z"
+        "400":
+          description: Invalid parameters
+          content:
+            application/json:
+              example:
+                error: Invalid page and/or limit parameter.
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              example:
+                error: Not Authenticated
+        "404":
+          description: Image not found
+          content:
+            application/json:
+              example:
+                error: Image with imageId=123 does not exist.
+
+    post:
+      tags: [Comments]
+      summary: Add a comment to an image (authenticated)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            example: "Bearer <token>"
+          description: Bearer token for authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [content]
+              properties:
+                content:
+                  type: string
+                  example: "Nice shot!"
+      responses:
+        "200":
+          description: Comment added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+        "400":
+          description: Missing fields
+          content:
+            application/json:
+              example:
+                error: Fields imageId, author, and content are required.
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              example:
+                error: Not Authenticated
+        "404":
+          description: Image not found
+          content:
+            application/json:
+              example:
+                error: Image with imageId=123 does not exist.
+
+  /comments/{commentId}:
+    delete:
+      tags: [Comments]
+      summary: Delete a comment by ID (authenticated, own or own gallery)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            example: "Bearer <token>"
+          description: Bearer token for authentication
+        - in: path
+          name: commentId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Comment deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+        "400":
+          description: Missing commentId
+          content:
+            application/json:
+              example:
+                error: Field commentId is required
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              example:
+                error: Not Authenticated
+        "403":
+          description: Not allowed
+          content:
+            application/json:
+              example:
+                error: Cannot delete comment from other uses in gallery that's not owned
+        "404":
+          description: Comment not found
+          content:
+            application/json:
+              example:
+                error: Comment with commentId=123) not found.
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        The Bearer token must be included in the `Authorization` header for all endpoints that require authentication.
+
+        Example:
+
+        `Authorization: Bearer <token>`
+  schemas:
+    User:
+      type: object
+      properties:
+        userId:
+          type: integer
+        username:
+          type: string
+    Image:
+      type: object
+      properties:
+        imageId:
+          type: integer
+        title:
+          type: string
+        userId:
+          type: integer
+        postedDate:
+          type: string
+          format: date-time
+    Comment:
+      type: object
+      properties:
+        commentId:
+          type: integer
+        imageId:
+          type: integer
+        userId:
+          type: integer
+        username:
+          type: string
+        content:
+          type: string
+        postedDate:
+          type: string
+          format: date-time

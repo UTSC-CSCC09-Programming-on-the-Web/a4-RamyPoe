@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="media/favicon.ico" />
+    <title>The Web Gallery</title>
+    <link rel="stylesheet" href="styles/image.css" />
+    <link rel="stylesheet" href="styles/users.css" />
+    <link rel="stylesheet" href="styles/comment.css" />
+    <link rel="stylesheet" href="styles/form.css" />
+    <link rel="stylesheet" href="styles/anim.css" />
+  </head>
+  <body>
+    <div class="user-info-container">
+      <p id="userInfoName" class="user-info-name"></p>
+      <p id="loginBtn" class="user-account-btn page-link">LOGIN</p>
+    </div>
+
+    <header id="homePageTitle" class="title">The Web Gallery</header>
+
+    <div id="loginContainer" class="login-container animation-hide">
+      <form id="loginForm" class="custom-form login-form">
+        <input type="text" placeholder="Username" name="username" required />
+        <input
+          type="password"
+          placeholder="Password"
+          name="password"
+          required
+        />
+        <div class="login-btn-container">
+          <button id="signupBtn" class="btn login-btn">SIGN UP</button>
+          <div class="spacer"></div>
+          <button id="signinBtn" class="btn login-btn">SIGN IN</button>
+        </div>
+      </form>
+      <div id="loginStateMsg" class="login-state-msg"></div>
+    </div>
+
+    <hr class="seperation-bar" />
+
+    <div id="userSelection" class="user-selection">
+      <button id="myGalleryBtn" class="btn self-select-btn hidden">
+        GO TO MY GALLERY
+      </button>
+      <div id="usersContainer" class="users-container"></div>
+      <h1 id="failedUsersBanner" class="hidden">Failed loading galleries!</h1>
+      <h1 id="emptyUsersBanner" class="hidden">No other users yet!</h1>
+      <span id="spinningLoaderUsers" class="loader users-loader"></span>
+
+      <div id="usersPageInfo" class="page-info">
+        <p id="prevUsersPageLink" class="page-link">Prev</p>
+        <p id="pageUsersNumberDisplay">Showing 0-0 of 0</p>
+        <p id="nextUsersPageLink" class="page-link">Next</p>
+      </div>
+    </div>
+
+    <div id="galleryContainer" class="gallery hidden">
+      <div id="uploadImageContainer" class="add-image-form animation-hide">
+        <form id="uploadImageForm" class="custom-form">
+          <input type="text" placeholder="Image Title" name="title" required />
+          <input type="file" name="picture" class="form-element" required />
+          <button class="btn upload-image-btn">Upload</button>
+        </form>
+      </div>
+
+      <div id="galleryHeader" class="gallery-header">
+        <button id="addImgBtn" class="btn add-img-btn">ADD NEW IMAGE</button>
+        <div class="spacer"></div>
+        <p id="imageCount" class="image-count">0/0</p>
+        <div class="spacer"></div>
+        <button id="removeImgBtn" class="btn remove-img-btn">
+          DELETE IMAGE
+        </button>
+      </div>
+
+      <div id="imageContainer" class="gallery-image-container">
+        <img src="" id="galleryImage" class="gallery-image hidden" />
+        <button id="prevImgBtn" class="prev-btn"></button>
+        <button id="nextImgBtn" class="next-btn"></button>
+        <h1 id="emptyImgBanner" class="empty-img-banner hidden">
+          No images in this gallery yet!
+        </h1>
+        <h1 id="failedImgBanner" class="failed-img-banner hidden">
+          Failed to load image!
+        </h1>
+        <span id="spinningLoaderImage" class="loader image-loader"></span>
+      </div>
+
+      <div id="imageCaption" class="gallery-image-caption">
+        <b id="imageTitle" class="image-title">Title</b>
+        <div class="vertical-line"></div>
+        <p id="imageAuthor" class="image-author">Author</p>
+      </div>
+    </div>
+
+    <div id="commentsSection" class="hidden">
+      <div class="comments-title">Comments</div>
+
+      <div class="comments-form">
+        <form id="postCommentForm" class="custom-form upload-form">
+          <textarea
+            placeholder="Comment Body"
+            name="content"
+            required
+          ></textarea>
+          <button class="btn post-comment-btn">Post Comment</button>
+        </form>
+      </div>
+
+      <div class="comments-container">
+        <div id="comments" class="comments"></div>
+        <h1 id="failedCommentsBanner" class="cmt-banner hidden">
+          Failed to load comments!
+        </h1>
+        <h1 id="emptyCommentsBanner" class="cmt-banner hidden">
+          No comments, be the first!
+        </h1>
+        <span id="spinningLoaderComments" class="loader comments-loader"></span>
+
+        <div class="page-info">
+          <p id="prevCommentPageLink" class="page-link">Prev</p>
+          <p id="pageNumberDisplay">Showing 0-0 of 0</p>
+          <p id="nextCommentPageLink" class="page-link">Next</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <a href="/credits.html">credits</a>
+    </footer>
+    <script src="js/meact.js"></script>
+    <script src="js/api-service.js"></script>
+    <script src="js/state-effects.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>

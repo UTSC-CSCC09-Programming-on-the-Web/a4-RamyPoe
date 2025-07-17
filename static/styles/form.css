@@ -1,0 +1,31 @@
+.custom-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  gap: 10px;
+  font-size: 18px;
+}
+
+.custom-form input[type="text"],
+.custom-form input[type="password"],
+.custom-form input[type="file"],
+.custom-form textarea {
+  background: transparent;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  outline: 2px solid #a9a9b7;
+  font-size: 18px;
+}
+
+.custom-form textarea {
+  resize: vertical;
+  min-height: 75px;
+  resize: vertical;
+}
+
+.custom-form button {
+  font-size: 14px;
+  border-width: 2px;
+}

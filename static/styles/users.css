@@ -1,0 +1,97 @@
+.user-gallery {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+}
+
+.user-select-btn {
+  border-color: goldenrod;
+  border-width: 3px;
+  height: fit-content;
+  padding: 5px 20px;
+  margin: auto 0;
+}
+
+.user-gallery-name {
+  font-size: 30px;
+  margin: auto 0;
+}
+
+.self-select-btn {
+  width: 100%;
+  margin: 30px 0;
+  margin-top: 0;
+  border-color: goldenrod;
+}
+
+.user-selection {
+  margin-top: 50px;
+}
+
+.user-gallery {
+  margin: 15px 0;
+}
+
+.users-loader {
+  margin: 0;
+}
+
+.user-info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.user-account-btn {
+  margin: auto 0;
+  margin-left: 5px;
+}
+
+.user-info-name {
+  margin: auto 0;
+  margin-right: 5px;
+}
+
+.dashed-line {
+  width: 90%;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-top: 3px dotted white;
+  margin: auto 5%;
+  flex: 1;
+}
+
+.login-btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.login-btn {
+  flex: 15;
+}
+
+.login-form {
+  margin-bottom: 20px;
+}
+
+.login-container {
+  transition:
+    visibility 1s,
+    max-height 1s;
+  overflow: hidden;
+  padding: 0px 2px;
+  margin-bottom: 10px;
+  margin-left: 20%;
+  margin-right: 20%;
+  max-height: 40vh;
+}
+
+@media (max-width: 576px) {
+  .login-container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
