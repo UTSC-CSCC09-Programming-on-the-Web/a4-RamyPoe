@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   nginx-proxy:
     image: jwilder/nginx-proxy
@@ -33,3 +31,5 @@ services:
     environment:
       - VIRTUAL_HOST=webgallery.ramypoe.tech
       - LETSENCRYPT_HOST=webgallery.ramypoe.tech
+    volumes:
+      - ./db/gallery.sqlite:/usr/src/app/gallery.sqlite
