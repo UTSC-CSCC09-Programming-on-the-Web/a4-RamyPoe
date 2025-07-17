@@ -9,7 +9,7 @@ import {
 import { usersRouter } from "./routers/users_router.js";
 
 export const app = express();
-const PORT = 3000;
+const PORT = 80;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
