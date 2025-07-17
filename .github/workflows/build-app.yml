@@ -7,10 +7,10 @@ on:
       - main
     # Only run this workflow if the commit has modified project files
     paths-ignore:
-      - '**.md'
-      - 'VM_INFO'
-      - 'SSH_KEYS'
-      - '.gitignore'
+      - "**.md"
+      - "VM_INFO"
+      - "SSH_KEYS"
+      - ".gitignore"
 
 env:
   IMAGE_NAME: a4-webgallery
@@ -47,13 +47,13 @@ jobs:
           echo VERSION=$VERSION
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
-        
+
       - name: Restart container
         uses: appleboy/ssh-action@v1.2.2
         with:
           host: "138.197.129.254"
           username: root
-          key: ${{ secrets.KEY }}
+          key: ${{ secrets.VM_SSH_KEY }}
           script: |
-              sleep 60
-              docker compose pull && docker compose up -d
+            sleep 60
+            docker compose pull && docker compose up -d
