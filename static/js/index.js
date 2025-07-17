@@ -205,7 +205,7 @@
       })
       .catch((error) => {
         if (error.name !== "AbortError") {
-          console.log(error);
+          console.error(error);
           stateEffects.setCommentsState("failed");
         }
       });
@@ -449,7 +449,8 @@
     const postCommentForm = document.querySelector("#postCommentForm");
     postCommentForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      if (["loading", "disabled"].includes(stateEffects.getCommentsState())) return;
+      if (["loading", "disabled"].includes(stateEffects.getCommentsState()))
+        return;
 
       const formData = new FormData(e.target);
       const formProps = Object.fromEntries(formData);

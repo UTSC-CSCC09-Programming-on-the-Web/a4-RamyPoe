@@ -40,11 +40,10 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Internal Server Error" });
 });
 
-
 /* final catch-all route to index.html defined last */
-app.get('/*', (req, res) => {
-  res.sendFile('/index.html', { root: "static" });
-})
+app.get("/*", (req, res) => {
+  res.sendFile("/index.html", { root: "static" });
+});
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);

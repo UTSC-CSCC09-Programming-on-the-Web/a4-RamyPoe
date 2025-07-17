@@ -8,10 +8,6 @@ let stateEffects = (function () {
   const [isMyGallery, getIsMyGallery, setIsMyGallery] = meact.useState(false);
   module.setIsMyGallery = setIsMyGallery;
   module.getIsMyGallery = getIsMyGallery;
-  // meact.useEffect(() => {
-  //   console.log(getIsMyGallery());
-  // }, [isMyGallery]);
-  // TODO: delete this
 
   const [loginMsg, getLoginMsg, setLoginMsg] = meact.useState("");
   module.setLoginMsg = setLoginMsg;
@@ -227,7 +223,7 @@ let stateEffects = (function () {
     const postCommentBtn = document.querySelector("#postCommentBtn");
 
     if (state === "disabled" && !getViewListPage()) {
-      failedBanner.innerHTML = "Login to see comments!"
+      failedBanner.innerHTML = "Login to see comments!";
       commentsContainer.classList.add("hidden");
       spinningLoader.classList.add("hidden");
       failedBanner.classList.remove("hidden");
@@ -260,7 +256,7 @@ let stateEffects = (function () {
       commentsContainer.classList.remove("hidden");
     }
     if (state === "failed") {
-      failedBanner.innerHTML = "Failed to load comments!"
+      failedBanner.innerHTML = "Failed to load comments!";
       commentsContainer.classList.add("hidden");
       spinningLoader.classList.add("hidden");
       failedBanner.classList.remove("hidden");
