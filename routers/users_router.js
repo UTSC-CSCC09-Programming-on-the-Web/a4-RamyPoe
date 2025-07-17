@@ -19,14 +19,14 @@ usersRouter.post("/register", async (req, res) => {
   const exists = await User.findOne({ where: { username } });
   if (exists) {
     return res
-      .status(422) // TODO: what is the best code here?
+      .status(422)
       .json({ error: "Username already taken! Try again." });
   }
 
   const salt = bcrypt.genSaltSync(SALT_ROUNDS);
   const passwordHash = bcrypt.hashSync(password, salt);
   const user = await User.create({ username, password: passwordHash });
-  res.json({ userId: user.userId, username: user.username }); // TODO: do they need the userID?
+  res.json({ userId: user.userId, username: user.username });
 });
 
 usersRouter.post("/token", async (req, res) => {

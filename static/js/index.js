@@ -40,7 +40,7 @@
           </div>
           ${
             stateEffects.getIsMyGallery() || userId === getUserData()?.userId
-              ? `<button class="delete-comment-btn">Delete</button>`
+              ? `<button class="delete-comment-btn button-anim">Delete</button>`
               : ""
           }
         </div>
@@ -59,7 +59,7 @@
     elmt.innerHTML = `
         <p class="user-gallery-name">${username}</p>
         <hr class="dashed-line" />
-        <button class="btn user-select-btn">VIEW</button>`;
+        <button class="btn user-select-btn button-anim">VIEW</button>`;
     elmt.querySelector(".user-select-btn").addEventListener("click", () => {
       stateEffects.setViewListPage(false);
       stateEffects.setButtonsDisabled(true);

@@ -35,3 +35,11 @@ p[disabled] {
 .title[disabled] {
   cursor: progress;
 }
+
+.button-anim {
+  transition: transform .2s;
+}
+
+.button-anim:hover {
+  transform: scale(1.1,1.1);
+}

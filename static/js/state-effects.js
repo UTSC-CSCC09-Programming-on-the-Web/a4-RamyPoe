@@ -38,6 +38,7 @@ let stateEffects = (function () {
   module.getViewListPage = getViewListPage;
   meact.useEffect(() => {
     const userSelection = document.querySelector("#userSelection");
+    const userInfoContainer = document.querySelector("#userInfoContainer");
     const elementsHide = document.querySelectorAll(
       "#galleryContainer, #commentsSection",
     );
@@ -45,9 +46,11 @@ let stateEffects = (function () {
     if (getViewListPage()) {
       userSelection.classList.remove("hidden");
       elementsHide.forEach((elmt) => elmt.classList.add("hidden"));
+      userInfoContainer.classList.add("more-centered");
     } else {
       userSelection.classList.add("hidden");
       elementsHide.forEach((elmt) => elmt.classList.remove("hidden"));
+      userInfoContainer.classList.remove("more-centered");
     }
     setShowLoginForm(false);
   }, [viewListPage]);

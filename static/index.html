@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="styles/anim.css" />
   </head>
   <body>
-    <div class="user-info-container">
+    <div id="userInfoContainer" class="user-info-container">
       <p id="userInfoName" class="user-info-name"></p>
-      <p id="loginBtn" class="user-account-btn page-link">LOGIN</p>
+      <p id="loginBtn" class="user-account-btn page-link button-anim">LOGIN</p>
     </div>
 
-    <header id="homePageTitle" class="title">The Web Gallery</header>
+    <header id="homePageTitle" class="title button-anim">The Web Gallery</header>
 
     <div id="loginContainer" class="login-container animation-hide">
       <form id="loginForm" class="custom-form login-form">
@@ -29,9 +29,9 @@
           required
         />
         <div class="login-btn-container">
-          <button id="signupBtn" class="btn login-btn">SIGN UP</button>
+          <button id="signupBtn" class="btn login-btn button-anim">SIGN UP</button>
           <div class="spacer"></div>
-          <button id="signinBtn" class="btn login-btn">SIGN IN</button>
+          <button id="signinBtn" class="btn login-btn button-anim">SIGN IN</button>
         </div>
       </form>
       <div id="loginStateMsg" class="login-state-msg"></div>
@@ -39,8 +39,8 @@
 
     <hr class="seperation-bar" />
 
-    <div id="userSelection" class="user-selection">
-      <button id="myGalleryBtn" class="btn self-select-btn hidden">
+    <div id="userSelection" class="user-selection more-centered">
+      <button id="myGalleryBtn" class="btn self-select-btn button-anim hidden">
         GO TO MY GALLERY
       </button>
       <div id="usersContainer" class="users-container"></div>
@@ -49,9 +49,9 @@
       <span id="spinningLoaderUsers" class="loader users-loader"></span>
 
       <div id="usersPageInfo" class="page-info">
-        <p id="prevUsersPageLink" class="page-link">Prev</p>
+        <p id="prevUsersPageLink" class="page-link button-anim">Prev</p>
         <p id="pageUsersNumberDisplay">Showing 0-0 of 0</p>
-        <p id="nextUsersPageLink" class="page-link">Next</p>
+        <p id="nextUsersPageLink" class="page-link button-anim">Next</p>
       </div>
     </div>
 
@@ -60,24 +60,24 @@
         <form id="uploadImageForm" class="custom-form">
           <input type="text" placeholder="Image Title" name="title" required />
           <input type="file" name="picture" class="form-element" required />
-          <button class="btn upload-image-btn">Upload</button>
+          <button class="btn button-anim upload-image-btn">Upload</button>
         </form>
       </div>
 
       <div id="galleryHeader" class="gallery-header">
-        <button id="addImgBtn" class="btn add-img-btn">ADD NEW IMAGE</button>
+        <button id="addImgBtn" class="btn button-anim add-img-btn">ADD NEW IMAGE</button>
         <div class="spacer"></div>
         <p id="imageCount" class="image-count">0/0</p>
         <div class="spacer"></div>
-        <button id="removeImgBtn" class="btn remove-img-btn">
+        <button id="removeImgBtn" class="btn button-anim remove-img-btn">
           DELETE IMAGE
         </button>
       </div>
 
       <div id="imageContainer" class="gallery-image-container">
         <img src="" id="galleryImage" class="gallery-image hidden" />
-        <button id="prevImgBtn" class="prev-btn"></button>
-        <button id="nextImgBtn" class="next-btn"></button>
+        <button id="prevImgBtn" class="prev-btn button-anim"></button>
+        <button id="nextImgBtn" class="next-btn button-anim"></button>
         <h1 id="emptyImgBanner" class="empty-img-banner hidden">
           No images in this gallery yet!
         </h1>
@@ -104,7 +104,7 @@
             name="content"
             required
           ></textarea>
-          <button class="btn post-comment-btn">Post Comment</button>
+          <button class="btn post-comment-btn button-anim">Post Comment</button>
         </form>
       </div>
 
@@ -119,9 +119,9 @@
         <span id="spinningLoaderComments" class="loader comments-loader"></span>
 
         <div class="page-info">
-          <p id="prevCommentPageLink" class="page-link">Prev</p>
+          <p id="prevCommentPageLink" class="page-link button-anim">Prev</p>
           <p id="pageNumberDisplay">Showing 0-0 of 0</p>
-          <p id="nextCommentPageLink" class="page-link">Next</p>
+          <p id="nextCommentPageLink" class="page-link button-anim">Next</p>
         </div>
       </div>
     </div>
